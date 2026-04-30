@@ -31,7 +31,7 @@ namespace CIDM3312Final.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CharacterStats")
+                    b.Property<string>("CharacterStory")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

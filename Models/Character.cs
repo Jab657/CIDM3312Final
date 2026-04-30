@@ -8,7 +8,7 @@ public class Character
     public int CharacterID { get; set; } // Primary Key
     public string CharacterName { get; set; } = string.Empty;
 
-    public string CharacterStats { get; set; } = string.Empty;
+    public string CharacterStory { get; set; } = string.Empty;
 
     public string CharacterImage { get; set; } = string.Empty;
 }

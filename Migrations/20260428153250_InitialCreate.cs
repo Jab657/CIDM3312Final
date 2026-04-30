@@ -18,7 +18,7 @@ namespace CIDM3312Final.Migrations
                     CharacterID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     CharacterName = table.Column<string>(type: "TEXT", nullable: false),
-                    CharacterStats = table.Column<string>(type: "TEXT", nullable: false),
+                    CharacterStory = table.Column<string>(type: "TEXT", nullable: false),
                     CharacterImage = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
