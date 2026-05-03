@@ -22,8 +22,7 @@ namespace CIDM3312Final.Pages.Characters
 
         public async Task OnGetAsync()
         {
-            Character = await _context.Characters
-                .Include(c => c.Game).ToListAsync();
+            Character = await _context.Characters.Include(g => g.Game).ToListAsync();
         }
     }
 }

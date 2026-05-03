@@ -7,13 +7,13 @@ public class Character
 {
     public int CharacterID { get; set; } // Primary Key
     public string CharacterName { get; set; } = string.Empty;
-
     public string CharacterStory { get; set; } = string.Empty;
 
 
     [Display(Name = "Game")]
-    public int GameID {get; set;}
-    public Game? Game {get; set;} = default!;
+    public int GameID { get; set; }
+    public Game? Game { get; set; } = default!;
+    public List<GameCharacter>? GameCharacters { get; set; } = default!;
 }
 
 public class GameCharacter

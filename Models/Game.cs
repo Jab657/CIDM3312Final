@@ -19,5 +19,6 @@ public class Game
     [Display(Name = "Genre")]
     public string Genre { get; set; } = string.Empty;
 
+    public List<Character>? Characters { get; set; } = default!; 
     public List<GameCharacter>? GameCharacters { get; set; } = default!; 
 }

@@ -1,10 +1,31 @@
 ﻿@page
 @model IndexModel
+
 @{
     ViewData["Title"] = "Home page";
+    int count = 0;
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row mb-2 justify-content-center">
+    @foreach (var items in Model.Games){
+        if(count == 3){
+            @:</div>
+            @:<div class="row mb-2 justify-content-center">
+            count = 0;
+        }
+        <div class="col-md-auto">
+            <div class="card" style="width: 24rem;">
+                <img class = "img-fluid img-thumbnail" src="@items.GameCover">
+                <h2 class="card-title">@Html.DisplayFor(model => items.Title)</h2>
+                <p class="card-text">@Html.DisplayFor(model => items.Genre)</p>
+                <hr class="my-0">
+                <p class="card-text fs-2">
+                    <h3>@Html.DisplayFor(model => items.ReleaseDate)</h3>
+                    <a asp-page="./Characters/Index" class="btn btn-primary float-end my-2">View Characters</a>
+                </p>
+            </div>
+        </div>
+        count = count + 1;
+    }
 </div>
