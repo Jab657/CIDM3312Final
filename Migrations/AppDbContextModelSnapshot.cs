@@ -35,7 +35,12 @@ namespace CIDM3312Final.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("GameID")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("CharacterID");
+
+                    b.HasIndex("GameID");
 
                     b.ToTable("Characters");
                 });
@@ -79,6 +84,17 @@ namespace CIDM3312Final.Migrations
                     b.HasIndex("CharacterID");
 
                     b.ToTable("GameCharacters");
+                });
+
+            modelBuilder.Entity("CIDM3312Final.Models.Character", b =>
+                {
+                    b.HasOne("CIDM3312Final.Models.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
                 });
 
             modelBuilder.Entity("CIDM3312Final.Models.GameCharacter", b =>

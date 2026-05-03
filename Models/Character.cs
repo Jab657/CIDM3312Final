@@ -10,7 +10,10 @@ public class Character
 
     public string CharacterStory { get; set; } = string.Empty;
 
-    public string CharacterImage { get; set; } = string.Empty;
+
+    [Display(Name = "Game")]
+    public int GameID {get; set;}
+    public Game? Game {get; set;} = default!;
 }
 
 public class GameCharacter

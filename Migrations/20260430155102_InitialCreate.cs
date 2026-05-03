@@ -12,21 +12,6 @@ namespace CIDM3312Final.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Characters",
-                columns: table => new
-                {
-                    CharacterID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CharacterName = table.Column<string>(type: "TEXT", nullable: false),
-                    CharacterStory = table.Column<string>(type: "TEXT", nullable: false),
-                    CharacterImage = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Characters", x => x.CharacterID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Games",
                 columns: table => new
                 {
@@ -40,6 +25,28 @@ namespace CIDM3312Final.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Games", x => x.GameID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Characters",
+                columns: table => new
+                {
+                    CharacterID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CharacterName = table.Column<string>(type: "TEXT", nullable: false),
+                    CharacterStory = table.Column<string>(type: "TEXT", nullable: false),
+                    CharacterImage = table.Column<string>(type: "TEXT", nullable: false),
+                    GameID = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Characters", x => x.CharacterID);
+                    table.ForeignKey(
+                        name: "FK_Characters_Games_GameID",
+                        column: x => x.GameID,
+                        principalTable: "Games",
+                        principalColumn: "GameID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -65,6 +72,11 @@ namespace CIDM3312Final.Migrations
                         principalColumn: "GameID",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Characters_GameID",
+                table: "Characters",
+                column: "GameID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GameCharacters_CharacterID",

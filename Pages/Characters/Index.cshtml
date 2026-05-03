@@ -1,0 +1,48 @@
+@page
+@model CIDM3312Final.Pages.Characters.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Character[0].CharacterName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Character[0].CharacterStory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Character[0].Game)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Character) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CharacterName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CharacterStory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Game.GameID)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.CharacterID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.CharacterID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.CharacterID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
