@@ -23,10 +23,6 @@ namespace CIDM3312Final.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CharacterImage")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("CharacterName")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -89,7 +85,7 @@ namespace CIDM3312Final.Migrations
             modelBuilder.Entity("CIDM3312Final.Models.Character", b =>
                 {
                     b.HasOne("CIDM3312Final.Models.Game", "Game")
-                        .WithMany()
+                        .WithMany("Characters")
                         .HasForeignKey("GameID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -100,7 +96,7 @@ namespace CIDM3312Final.Migrations
             modelBuilder.Entity("CIDM3312Final.Models.GameCharacter", b =>
                 {
                     b.HasOne("CIDM3312Final.Models.Character", "Character")
-                        .WithMany()
+                        .WithMany("GameCharacters")
                         .HasForeignKey("CharacterID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -116,8 +112,15 @@ namespace CIDM3312Final.Migrations
                     b.Navigation("Game");
                 });
 
+            modelBuilder.Entity("CIDM3312Final.Models.Character", b =>
+                {
+                    b.Navigation("GameCharacters");
+                });
+
             modelBuilder.Entity("CIDM3312Final.Models.Game", b =>
                 {
+                    b.Navigation("Characters");
+
                     b.Navigation("GameCharacters");
                 });
 #pragma warning restore 612, 618

@@ -27,7 +27,7 @@ namespace CIDM3312Final.Pages.Characters
                 return NotFound();
             }
 
-            var character = await _context.Characters.FirstOrDefaultAsync(m => m.CharacterID == id);
+            var character = await _context.Characters.Include(g => g.Game).FirstOrDefaultAsync(m => m.CharacterID == id);
 
             if (character is not null)
             {

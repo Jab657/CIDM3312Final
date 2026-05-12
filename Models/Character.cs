@@ -9,7 +9,6 @@ public class Character
     public string CharacterName { get; set; } = string.Empty;
     public string CharacterStory { get; set; } = string.Empty;
 
-
     [Display(Name = "Game")]
     public int GameID { get; set; }
     public Game? Game { get; set; } = default!;

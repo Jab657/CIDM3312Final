@@ -22,7 +22,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Character[0].CharacterStory)
             </th>
-            
             <th></th>
         </tr>
     </thead>
@@ -30,15 +29,14 @@
 @foreach (var item in Model.Character) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Game)
+                @Html.DisplayFor(modelItem => item.CharacterName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CharacterName)
+                @Html.DisplayFor(modelItem => item.Game.Title)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CharacterStory)
             </td>
-            
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.CharacterID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.CharacterID">Details</a> |
@@ -48,3 +46,24 @@
 }
     </tbody>
 </table>
+
+@{
+    // If we are on page 1, prevDisabled will be set to the "disabled" class
+    // otherwise, it will be empty. So our previous button will be enabled or disabled based on this logic
+    var prevDisabled = "";
+    var nextDisabled = "";
+    if (Model.PageNum <= 1)
+    {
+        prevDisabled = "disabled";
+    }
+    if (Model.PageNum >= Model.TotalPages)
+    {
+        nextDisabled = "disabled";
+    }
+}
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @prevDisabled"><a class="page-link" asp-page="./Index" asp-route-PageNum="@(Model.PageNum - 1)">Previous</a></li>
+        <li class="page-item @nextDisabled"><a class="page-link" asp-page="./Index" asp-route-PageNum="@(Model.PageNum + 1)">Next</a></li>
+    </ul>
+</nav>

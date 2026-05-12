@@ -35,7 +35,6 @@ namespace CIDM3312Final.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     CharacterName = table.Column<string>(type: "TEXT", nullable: false),
                     CharacterStory = table.Column<string>(type: "TEXT", nullable: false),
-                    CharacterImage = table.Column<string>(type: "TEXT", nullable: false),
                     GameID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
