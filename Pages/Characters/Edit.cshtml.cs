@@ -21,6 +21,7 @@ namespace CIDM3312Final.Pages.Characters
 
         [BindProperty]
         public Character Character { get; set; } = default!;
+        public List<Game> Games { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -35,7 +36,7 @@ namespace CIDM3312Final.Pages.Characters
                 return NotFound();
             }
             Character = character;
-            ViewData["Title"] = new SelectList(_context.Characters, "Title", "Title");
+            ViewData["Title"] = new SelectList(_context.Games, "Title", "Title");
             return Page();
         }
 

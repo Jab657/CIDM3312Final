@@ -19,6 +19,14 @@ namespace CIDM3312Final.Pages.Characters
         public int PageSize {get; set;} = 10;
         public int TotalPages {get; set;}
 
+        // Search support
+        [BindProperty(SupportsGet = true)]
+        public string CurrentSearch {get; set;} = string.Empty;
+
+        // Sorting support
+        [BindProperty(SupportsGet = true)]
+        public string CurrentSort {get; set;} = string.Empty;
+
         public IndexModel(CIDM3312Final.Models.AppDbContext context)
         {
             _context = context;
@@ -28,6 +36,23 @@ namespace CIDM3312Final.Pages.Characters
 
         public async Task OnGetAsync()
         {
+            var query = _context.Characters.Include(g => g.Game).Select(g => g);
+
+            if (!string.IsNullOrEmpty(CurrentSearch))
+            {
+                query = query.Where(g => g.CharacterName.ToUpper().Contains(CurrentSearch.ToUpper()));
+            }
+
+
+            switch (CurrentSort)
+            {
+                case "first_asc":
+                    query = query.OrderBy(g => g.CharacterName);
+                    break;
+                case "first_desc":
+                    query = query.OrderByDescending(g => g.CharacterName);
+                    break;
+            }
 
             TotalPages = (int)Math.Ceiling(_context.Games.Count() / (double)PageSize);
             

@@ -10,15 +10,35 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+<div class="row">
+    <form class="d-flex" role="search" asp-page="./Index" method="get">
+        <div class="col-3">
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input class="form-control me-2" type="search" name="CurrentSearch" value="@Model.CurrentSearch" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Character[0].Game)
+                @{
+                    //Alternate sort order
+                    var firstSort = "first_asc";
+                    if (Model.CurrentSort == "first_asc")
+                    {
+                        firstSort = "first_desc";
+                    }
+                }
+                <a asp-page="./Index" asp-route-CurrentSort="@firstSort" asp-route-PageNum="@Model.PageNum">@Html.DisplayNameFor(model => model.Character[0].CharacterName)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Character[0].CharacterName)
+                @Html.DisplayNameFor(model => model.Character[0].Game)
             </th>
+           
             <th>
                 @Html.DisplayNameFor(model => model.Character[0].CharacterStory)
             </th>
@@ -63,7 +83,7 @@
 }
 <nav aria-label="Page navigation">
     <ul class="pagination">
-        <li class="page-item @prevDisabled"><a class="page-link" asp-page="./Index" asp-route-PageNum="@(Model.PageNum - 1)">Previous</a></li>
-        <li class="page-item @nextDisabled"><a class="page-link" asp-page="./Index" asp-route-PageNum="@(Model.PageNum + 1)">Next</a></li>
+        <li class="page-item @prevDisabled"><a class="page-link" asp-page="./Index" asp-route-CurrentSort="@Model.CurrentSort" asp-route-PageNum="@(Model.PageNum - 1)">Previous</a></li>
+        <li class="page-item @nextDisabled"><a class="page-link" asp-page="./Index" asp-route-CurrentSort="@Model.CurrentSort" asp-route-PageNum="@(Model.PageNum + 1)">Next</a></li>
     </ul>
 </nav>
