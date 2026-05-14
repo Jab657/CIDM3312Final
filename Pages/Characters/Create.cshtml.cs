@@ -20,7 +20,7 @@ namespace CIDM3312Final.Pages.Characters
 
         public IActionResult OnGet()
         {
-        ViewData["GameID"] = new SelectList(_context.Games, "GameID", "GameID");
+        ViewData["GameID"] = new SelectList(_context.Games, "Title", "Title");
             return Page();
         }
 

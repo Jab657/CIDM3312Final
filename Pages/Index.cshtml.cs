@@ -13,6 +13,7 @@ namespace CIDM3312Final.Pages
     {
         private readonly CIDM3312Final.Models.AppDbContext _context;
 
+
         public IndexModel(CIDM3312Final.Models.AppDbContext context)
         {
             _context = context;
@@ -22,7 +23,7 @@ namespace CIDM3312Final.Pages
 
         public async Task OnGetAsync()
         {
-            Games = await _context.Games.Include(p => p.Characters).ToListAsync();
+            Games = await _context.Games.Include(p => p.GameCharacters!).ThenInclude(gc => gc.Character).ToListAsync();
         }
     }
 }

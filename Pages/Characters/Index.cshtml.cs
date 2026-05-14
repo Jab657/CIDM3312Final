@@ -13,6 +13,11 @@ namespace CIDM3312Final.Pages.Characters
     {
         private readonly CIDM3312Final.Models.AppDbContext _context;
 
+        public IndexModel(CIDM3312Final.Models.AppDbContext context)
+        {
+            _context = context;
+        }
+        public IList<Character> Character { get;set; } = default!;
 
         [BindProperty(SupportsGet = true)]
         public int PageNum {get; set;} = 1;
@@ -27,22 +32,14 @@ namespace CIDM3312Final.Pages.Characters
         [BindProperty(SupportsGet = true)]
         public string CurrentSort {get; set;} = string.Empty;
 
-        public IndexModel(CIDM3312Final.Models.AppDbContext context)
-        {
-            _context = context;
-        }
-
-        public IList<Character> Character { get;set; } = default!;
-
         public async Task OnGetAsync()
         {
-            var query = _context.Characters.Include(g => g.Game).Select(g => g);
+            var query = _context.Characters.Include(g => g.GameCharacters!).ThenInclude(cg => cg.Game).Select(g => g);
 
             if (!string.IsNullOrEmpty(CurrentSearch))
             {
                 query = query.Where(g => g.CharacterName.ToUpper().Contains(CurrentSearch.ToUpper()));
             }
-
 
             switch (CurrentSort)
             {
@@ -54,10 +51,9 @@ namespace CIDM3312Final.Pages.Characters
                     break;
             }
 
-            TotalPages = (int)Math.Ceiling(_context.Games.Count() / (double)PageSize);
+            TotalPages = (int)Math.Ceiling(_context.Characters.Count() / (double)PageSize);
             
-            Character = await _context.Characters.Include(g => g.Game)
-            .Skip((PageNum-1)*PageSize).Take(PageSize).ToListAsync(); 
+            Character = await query.Skip((PageNum-1)*PageSize).Take(PageSize).ToListAsync(); 
               
         }
     }
