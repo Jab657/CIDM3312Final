@@ -34,7 +34,8 @@ namespace CIDM3312Final.Pages.Characters
 
         public async Task OnGetAsync()
         {
-            var query = _context.Characters.Include(g => g.GameCharacters!).ThenInclude(cg => cg.Game).Select(g => g);
+            // var query = _context.Characters.Include(g => g.GameCharacters!).ThenInclude(cg => cg.Game).Select(g => g);
+            var query = _context.Characters.Include(g => g.Game!).Select(g => g);
 
             if (!string.IsNullOrEmpty(CurrentSearch))
             {

@@ -52,9 +52,7 @@
                 @Html.DisplayFor(modelItem => item.CharacterName)
             </td>
             <td>
-                @foreach(var game in item.GameCharacters!){
-                    @game.Game.Title
-                }
+                @Html.DisplayFor(modelItem => item.Game!.Title)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CharacterStory)
